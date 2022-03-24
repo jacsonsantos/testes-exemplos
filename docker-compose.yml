@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  application:
+    image: php:7.4-apache
+    working_dir: /app
+    volumes:
+      - ./php:/app
+    entrypoint: /app/entrypoint.sh

@@ -12,10 +12,23 @@ class BeerControllerTest extends TestCase
 
     protected function setUp()
     {
-        $this->controller = new BeerController();
+        $mockStatement = Mockery::mock(\PDOStatement::class);
+        $mockStatement
+            ->shouldReceive('fetchAll')
+            ->once()
+            ->with(\PDO::FETCH_ASSOC)
+            ->andReturn([]);
+
+        $mockPDO = Mockery::mock(\PDO::class);
+        $mockPDO
+            ->shouldReceive('query')
+            ->once()
+            ->andReturn($mockStatement);
+
+        $this->controller = new BeerController($mockPDO);
     }
 
-    public function testListOfBeerIsEmpty()
+    public function testListOfBeerIsJsonEmpty()
     {
         $data = $this->controller->getIndex();
 

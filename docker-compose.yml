@@ -6,3 +6,20 @@ services:
     volumes:
       - ./php:/app
     entrypoint: /app/entrypoint.sh
+
+  frontend:
+    image: node:12.16.2-stretch-slim
+    working_dir: /app
+    volumes:
+      - ./javascript:/app
+    entrypoint: /app/entrypoint.sh
+
+  vue:
+    image: node:12.16.2-stretch-slim
+    working_dir: /app
+    volumes:
+      - ./vue/hello-world:/app
+      - ./vue/entrypoint.sh:/app/entrypoint.sh
+    ports:
+      - 8081:8080
+    entrypoint: /app/entrypoint.sh
